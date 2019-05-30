@@ -1,0 +1,60 @@
+{
+    "schemaVersion": "2.0",
+    "version": "1.3.0",
+    "packages":{ 
+        "windows":{
+            "_any": {
+                "x86_64": {
+                    "file": "TrendMicro_WINDOWS.zip"
+                }
+            }
+        },
+        "amazon": {
+            "_any": {
+                "x86_64": {
+                    "file": "TrendMicro_LINUX.zip"
+                }
+            }
+        },    
+        "redhat": {
+            "_any": {
+                "x86_64": {
+                    "file": "TrendMicro_LINUX.zip"
+                }
+            }
+        },        
+        "ubuntu": {
+            "_any": {
+                "x86_64": {
+                    "file": "TrendMicro_LINUX.zip"
+                }
+            }
+        },            
+        "suse": {
+            "_any": {
+                "x86_64": {
+                    "file": "TrendMicro_LINUX.zip"
+                }
+            }
+        },            
+        "centos": {
+            "_any": {
+                "x86_64": {
+                    "file": "TrendMicro_LINUX.zip"
+                }
+            }
+        }    
+    },                                  
+    "files": {
+        "TrendMicro_WINDOWS.zip": {
+            "checksums": {
+                "sha256": "1ce0d0f35edc84fee13ab8b21202de7d44640aac5db2aec2357accfa471539e0"
+            }
+        },
+        "TrendMicro_LINUX.zip": {
+            "checksums": {
+                "sha256": "586ad3946c67797f32f1c57170317daff139cc3a51c18ce06deab975f8970751"
+            }
+        }
+    }
+}

@@ -1,0 +1,134 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Template to Deploy the EC2 SSM Role",
+    "Parameters": {
+        "EC2RoleName": {
+            "Description": "Role name of the EC2 Instance Profile for SSM",
+            "Type": "String",
+            "Default": "EC2_DSM_SSM_Role"
+        },
+        "DSMManage": {
+            "Description": "DSM Manager URL from deployment script, example: https://app.deepsecurity.trendmicro.com:443",
+            "Type": "String",
+            "AllowedPattern": "^https:\/\/.*:.*",
+            "Default": "https://app.deepsecurity.trendmicro.com:443"
+        },
+        "DSMActivation": {
+            "Description": "Activation URL from deployment script with trailing '/', example:  dsm://agents.deepsecurity.trendmicro.com:443/",
+            "Type": "String",
+            "AllowedPattern": "^dsm:\/\/.*:.*/$",
+            "Default": "dsm://agents.deepsecurity.trendmicro.com:443/"
+        },
+        "TenantID": {
+            "Description": "Required only for DSaaS or Multi-Tenant Deployments, otherwise leave NONE",
+            "Type": "String",
+            "Default": "NONE"
+        },
+        "Token": {
+            "Description": "Required only for DSaaS or Multi-Tenant Deployments, otherwise leave NONE",
+            "Type": "String",
+            "Default": "NONE"
+        }
+    },
+    "Resources": {
+        "DSMMANAGEURL": {
+            "Type": "AWS::SSM::Parameter",
+            "Properties": {
+                "Name": "DSMManagerURL",
+                "Type": "String",
+                "Value": 
+                { "Ref": "DSMManage" }
+         }
+        },
+        "DSMACTIVATIONURL": {
+            "Type": "AWS::SSM::Parameter",
+            "Properties": {
+                "Name": "DSMActivationURL",
+                "Type": "String",
+                "Value": { "Ref": "DSMActivation" }
+            }
+        },
+        "DSMTenant": {
+        "Type": "AWS::SSM::Parameter",
+        "Properties": {
+            "Name": "DSMTenantID",
+            "Type": "String",
+            "Value": { "Ref": "TenantID" }
+            }
+        },
+        "DSMToken": {
+        "Type": "AWS::SSM::Parameter",
+        "Properties": {
+            "Name": "DSMTokenID",
+            "Type": "String",
+            "Value": { "Ref": "Token" }
+            }
+        },    
+        "EC2SSMRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "RoleName": {
+                    "Ref": "EC2RoleName"
+                },
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "ec2.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "ManagedPolicyArns": [
+                    "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
+                ],
+                "Path": "/",
+                "Policies": [
+                    {
+                        "PolicyName": "DeepSecurityManagerInstancePolicy",
+                        "PolicyDocument": {
+                            "Statement": [
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "ssm:GetParameter"
+                                    ],
+                                    "Resource": "*"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "EC2SSMInstanceProfile": {
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties": {
+                "InstanceProfileName": "EC2SSMInstanceProfile",
+                "Path": "/",
+                "Roles": [
+                    {
+                        "Ref": "EC2SSMRole"
+                    }
+                ]
+            }
+        }
+    },
+    "Outputs": {
+        "EC2SSMInstanceProfileARN": {
+            "Description": "ARN of the Instance Role",
+            "Value": {
+                "Fn::GetAtt": [
+                    "EC2SSMInstanceProfile",
+                    "Arn"
+                ]
+            }
+        }
+    }
+}
