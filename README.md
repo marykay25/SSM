@@ -37,52 +37,55 @@ Prerequisites:
 Create the Instance Profile and SSM Parameters via CloudFormation
 =================================================================
 
-1.  Clone repo: <https://github.com/Halimer/TrendMicro_AWS_Distributor>
+1.  Clone repo: <https://github.com/marykay25/SSM>
 
 2.  Go to: <https://console.aws.amazon.com/cloudformation/>
 
-> ![](images/image1.png){width="6.5in" height="1.3722222222222222in"}
+> ![](images/image1.png)
 
 3.  Click **Create Stack**.
 
 4.  Click **Choose File**.
 
-> ![](images/image2.png){width="6.5in" height="3.2631944444444443in"}
+> ![](images/image2.png)
 
 5.  Select the file **dsm\_ssm.template** from the repo.
 
-> ![](images/image3.png){width="6.5in" height="3.0868055555555554in"}
+> ![](images/image3.png)
 
 6.  Click **Next**.
 
 7.  Enter **DSMSSM** for the **Stack Name**.
 
-8.  For **DSMHostname**, enter the hostname for the Deep Security
-    Manager server without 'https://' or the trailing '/'.
+8.  To fill out the template, reference the DSM deployment script by logging into your DSM, then clicking on
+	**Support** at the top right and then select **Deployment Scripts**.
+	A. **DSMActivation**, enter the Activation URL from the DSM deployment script including the dsm prefix and trailing "/"
+	B. **DSMManage**, enter in the DSM Manager URL from deployment script including the https prefix and port
+	C. **TenantID**, Required only for DSaaS or Multi-Tenant Deployments, otherwise leave NONE
+	D. **Token**, Required only for DSaaS or Multi-Tenant Deployments, otherwise leave NONE
 
-> ![](images/image4.png){width="6.831830708661418in"
-> height="2.5083333333333333in"}
+> ![](images/image4.png)
+
 
 9.  Click **Next**.
 
 10. Enter **Name** under **Key** and **DSM SSM** under
-    **Value**.![](images/image5.png){width="6.5in"
-    height="1.1583333333333334in"}
+    **Value**.![](images/image5.png)
 
 11. Click **Next**.
 
-> ![](images/image6.png){width="6.5in" height="1.9736111111111112in"}
+> ![](images/image6.png)
 
 12. Check the box next to: **I acknowledge that AWS CloudFormation might
     create IAM resources with custom names.**
 
-> ![](images/image7.png){width="6.5in" height="1.9180555555555556in"}
+> ![](images/image7.png)
 
 13. Click **Create**.
 
-> ![](images/image8.png){width="6.5in" height="1.1583333333333334in"}
+> ![](images/image8.png)
 >
-> ![](images/image9.png){width="6.5in" height="2.05in"}
+> ![](images/image9.png)
 
 14. Wait for the CloudFormation to complete.
 
@@ -91,12 +94,11 @@ Attach the Instance Profile to EC2 Instances
 
 1.  Go to the EC2 Console.
 
-2.  ![](images/image10.png){width="6.495833333333334in"
-    height="3.8in"}Select the instance you want to add to IAM Role.
+2.  ![](images/image10.png) Select the instance you want to add to IAM Role.
 
 3.  Select **EC2SSMInstanceProfile.**
 
-    ![](images/image11.png){width="6.5in" height="1.65625in"}
+    ![](images/image11.png)
 
 4.  Click **Apply.**
 
@@ -112,37 +114,36 @@ Building the Distributor Package
 3.  Click the bucket name.
 
 4.  Click **Create folder**. Name the folder
-    **DSMDistributor.**![](images/image12.png){width="6.5in"
-    height="4.607638888888889in"}
+    **DSMDistributor.**![](images/image12.png)
 
 5.  Click **Save.**
 
 6.  Go into the folder **DSMDistributor.**
 
-    ![](images/image13.png){width="6.5in" height="3.245138888888889in"}
+    ![](images/image13.png)
 
 7.  Click **Upload**. Add the **manifest.json**,
     **TrendMicro\_Windows.zip**, and **TrendMicro\_Linux.zip.**
 
-    ![](images/image14.png){width="6.5in" height="4.322222222222222in"}
+    ![](images/image14.png)
 
 8.  Click **Upload.**
 
-> ![](images/image15.png){width="6.5in" height="4.131944444444445in"}
+> ![](images/image15.png)
 
 9.  Now click the **manifest.json** file and copy the link under
     **Object URL** up to the last '/'.
 
-    ![](images/image16.png){width="6.5in" height="6.694444444444445in"}
+    ![](images/image16.png)
 
 10. Go to System Manager:
     <https://console.aws.amazon.com/systems-manager/>
 
-> ![](images/image17.png){width="6.5in" height="3.0791666666666666in"}
+> ![](images/image17.png)
 
 11. Click **Distributor.**
 
-    ![](images/image18.png){width="6.5in" height="2.827777777777778in"}
+    ![](images/image18.png)
 
 12. Click **Create Package.**
 
@@ -154,25 +155,24 @@ Building the Distributor Package
 
 16. Select **Extract from package.**
 
-> ![](images/image19.png){width="6.5in" height="6.06875in"}
+> ![](images/image19.png)
 
 17. Click **Create Package.**
 
-> ![](images/image20.png){width="6.5in" height="3.4902777777777776in"}
+> ![](images/image20.png)
 
 18. Wait a minute.
 
 19. On the left side, click
-    **Distributor**.![](images/image21.png){width="6.5in"
-    height="4.451388888888889in"}
+    **Distributor**.![](images/image21.png)
 
 20. Click **TrendMicroDSMAgent** or the name you gave for the package.
 
-> ![](images/image22.png){width="6.5in" height="2.5506944444444444in"}
+> ![](images/image22.png)
 
 21. Click **Install one time.**
 
-> ![](images/image23.png){width="6.5in" height="3.761111111111111in"}
+> ![](images/image23.png)
 
 22. Scroll down to **Targets.**
 
@@ -182,23 +182,23 @@ Building the Distributor Package
     longer. For more information:
     <https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-inventory.html>
 
-> ![](images/image24.png){width="6.510713035870516in" height="2.87in"}
+> ![](images/image24.png)
 
 24. Scroll to **Output options.**
 
 25. Uncheck **Enable writing to an S3 bucket.**
 
-> ![](images/image25.png){width="6.5in" height="1.4243055555555555in"}
+> ![](images/image25.png)
 
 26. Click **Run.**
 
-> ![](images/image26.png){width="6.5in" height="2.8020833333333335in"}
+> ![](images/image26.png)
 
 27. After a few minutes, the command will succeed.
 
-> ![](images/image27.png){width="6.5in" height="2.43125in"}
+> ![](images/image27.png)
 
 28. Now you can log into the Deep Security Manager console to see the
     new instances.
 
-> ![](images/image28.png){width="6.5in" height="4.230555555555555in"}
+> ![](images/image28.png)
