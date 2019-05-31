@@ -92,7 +92,9 @@ Attach the Instance Profile to EC2 Instances
 
 1.  Go to the EC2 Console.
 
-2.  ![](images/image10.png) Select the instance you want to add to IAM Role.
+2.  Select the instance you want to add to IAM Role.
+
+> ![](images/image10.png)
 
 3.  Select **EC2SSMInstanceProfile.**
 
