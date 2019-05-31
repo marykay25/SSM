@@ -57,12 +57,11 @@ Create the Instance Profile and SSM Parameters via CloudFormation
 
 7.  Enter **DSMSSM** for the **Stack Name**.
 
-8.  To fill out the template, reference the DSM deployment script by logging into your DSM, then clicking on
-	**Support** at the top right and then select **Deployment Scripts**.
-		- **DSMActivation**, enter the Activation URL from the DSM deployment script including the dsm prefix and trailing "/"
-		- **DSMManage**, enter in the DSM Manager URL from deployment script including the https prefix and port
-		- **TenantID**, Required only for DSaaS or Multi-Tenant Deployments, otherwise leave NONE
-		- **Token**, Required only for DSaaS or Multi-Tenant Deployments, otherwise leave NONE
+8.  To fill out the template, reference the DSM deployment script by logging into your DSM, then clicking on **Support** at the top right and then select **Deployment Scripts**.
+       - **DSMActivation**, enter the Activation URL from the DSM deployment script including the dsm prefix and trailing "/"
+	   - **DSMManage**, enter in the DSM Manager URL from deployment script including the https prefix and port
+	   - **TenantID**, Required only for DSaaS or Multi-Tenant Deployments, otherwise leave NON
+       - **Token**, Required only for DSaaS or Multi-Tenant Deployments, otherwise leave NONE
 
 > ![](images/image4.png)
 
